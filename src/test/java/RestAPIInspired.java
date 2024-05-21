@@ -6,7 +6,7 @@ import static io.restassured.RestAssured.given;
 
 import org.junit.Assert;
 import io.restassured.path.json.JsonPath;
-public class RestAPIInvestec {
+public class RestAPIInspired {
 	
 	@Test
 	   public void jsonIterateArr() {
