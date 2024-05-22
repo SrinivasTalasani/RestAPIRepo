@@ -1,42 +1,39 @@
+import com.google.common.graph.EndpointPair;
 import org.testng.annotations.Test;
 
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
+
+import static io.restassured.RestAssured.authentication;
 import static io.restassured.RestAssured.given;
 
 import org.junit.Assert;
 import io.restassured.path.json.JsonPath;
+
 public class RestAPIInspired {
-	
-	@Test
-	   public void jsonIterateArr() {
 
-	  given()
+    @Test
+    public void jsonIterateArr() {
+        RestAssured.baseURI = "https://reqres.in";
+        Response response = RestAssured.given()
+                .when()
 
-      .when()
-      .get("https://reqres.in/api/users?page=2")
-      
-      .then()
-      .statusCode(200)
-      .log().all();
-	     
+                .get("/api/users/2");
 
-	      //convert JSON to string
-	      //JsonPath j = new JsonPath(res.asString());
+        if (response.getStatusCode() == 200) {
+            System.out.println("status code:" + response.getStatusCode());
+            String firstName = response.jsonPath().getString("data.first_name");
+            System.out.println("First Name:" + firstName);
+            String url = response.jsonPath().getString("url");
+            System.out.println(RestAssured.baseURI + ("/api/users/2"));
 
-	      //get values of JSON array after getting array size
-	      //int ressize = j.getInt("results.size()");
-	      //for(int i = 0; i < ressize; i++) {
-	        // String name = j.getString("results["+i+"].name");
-	         //if(name.equals("R2-D2")) {
-	         //String skincolor = j.getString("results["+i+"].skin_color");
-	         //Assert.assertEquals("white, blue", skincolor);
-	        // Assert.assertEquals("R2-D2", name);
-	        // System.out.println(name);
-	        // System.out.println(skincolor);
-	      //}
-	   }
-	}
+        } else {
+            System.out.println("Failed to get data:" + response.getStatusCode());
+        }
+
+
+    }
+}
 	
 	
 	
