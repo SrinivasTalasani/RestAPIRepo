@@ -11,7 +11,6 @@ public class RestAPIInspired {
         RestAssured.baseURI = "https://api.coindesk.com/v1/bpi/currentprice.json";
         Response response = RestAssured.given()
                 .when()
-
                 .get(baseURI);
 
         if (response.getStatusCode() == 200) {
